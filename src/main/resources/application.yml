@@ -1,0 +1,96 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    threads:
+      max: 200
+      min-spare: 30
+    connection-timeout: 5000ms
+  port: 8080
+  servlet:
+    context-path: /emos-wx-api
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/emos?useUnicode=true&characterEncoding=UTF-8
+      username: root
+      password: 123456
+      initial-size: 8
+      max-active: 16
+      min-idle: 8
+      max-wait: 60000
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+
+  redis:
+    database: 0
+    host: localhost
+    password: 123456
+    port: 6379
+    jedis:
+      pool:
+        max-active: 1000
+        max-wait: -1ms
+        max-idle: 16
+        min-idle: 8
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: emos
+      authentication-database: admin
+      username: root
+      password: 123456
+  mail:
+    default-encoding: UTF-8
+    host: smtp.163.com
+    username: 12345678901@163.com
+    password: your mail server password
+
+mybatis:
+  mapper-locations: classpath*:mapper/*.xml
+  type-aliases-package: com.example.emos.wx.db.pojo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    root: info
+    com.example.emos.wx.db.dao : warn
+  pattern:
+    console: "%d{HH:mm:ss}  %-5level  %msg%n"
+
+emos:
+  # jwt配置信息
+  jwt:
+    secret: itxiaohao
+    expire: 5
+    cache-expire: 10
+  # 人脸识别
+  face:
+    createFaceModelUrl: http://localhost:3000/create_face_model
+    checkinUrl: http://localhost:3000/checkin
+  # 常用邮箱地址
+  email:
+    system: 12345678901@163.com
+    hr: 12345678901@qq.com
+  # 签到自拍照文件地址（无需存储ftp，验证完删除即可）
+  image-folder: D:/emos/image
+  code: 22B98A774C5EA3D5 # 人脸识别程序需要的code
+  recieveNotify: http://localhost:8080/emos-wx-api/meeting/recieveNotify
+
+workflow:
+  url: http://localhost:9090/emos-workflow
+
+wx:
+  app-id: your appid
+  app-secret: your app_secret
+# 腾讯音视频服务
+trtc:
+  appid: your trtr_appid
+  key: your trty_key
+  expire: 86400
