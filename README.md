@@ -1,5 +1,3 @@
-# emos-wx-api
- ## emos在线协同办公小程序后端
  ### 技术栈
  1. springboot
  2. mysql
